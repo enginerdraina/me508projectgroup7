@@ -1,0 +1,84 @@
+This is instructions for how to get started with your MD simulations.
+
+##### CONDA ENVIRONMENT ####
+
+Firstly, we will need to create a conda environment for ASE/MACE on a GPU. It is important that you are
+on a GPU, otherwise the conda environment will not be created.
+On the SCC website, go to "My Interactive Sessions" and request a 2 hour session with 1 GPU
+Preload the miniconda module, and change your working directory to wherever you want to
+run the calculations in me508. I recommend making a separate directory, but, you do you here...
+
+When your GPU session starts, connect to the desktop. We have to edit the .yml file first.
+The last line of the .yml file needs your conda environment path. Here is how to find it:
+
+    $ conda env list
+
+This is my output. Note the paths in front of all of my conda envs (except base)!!
+
+[lclemens@scc1 ASE-MACE]$ conda env list
+
+# conda environments:
+#
+ASEMaceEnvironmentGPU   /projectnb/nonadmd/lclemens/.conda/envs/ASEMaceEnvironmentGPU
+standard               /projectnb/nonadmd/lclemens/.conda/envs/standard
+tflow                  /projectnb/nonadmd/lclemens/.conda/envs/tflow
+base                   /share/pkg.8/miniconda/25.3.1/install
+
+In the .yml file, you need to change the path from mine to yours in the last line.
+
+Then, we can create the environment:
+     $ conda env create -f MACEGPUenvironment.yml
+     
+This will not work if you do not use a GPU node. When the environment is done creating, run
+
+     $ conda activate ASEMaceEnvironmentGPU
+
+This will load your GPU environment for the first time!
+
+#### MACE MODEL ####
+
+In your example_nvt.py, you will need to change the path to the MACE model (the .model file). Wherever you unzipped
+your .zip file is where you will have your MACE model. Remember that the command pwd will tell you what directory
+you are currently in. Copy that path and keep the file name at the end of it.
+
+On the off chance that the model doesn't work and you need to redownload it....
+
+####
+TO DOWNLOAD MACE MODEL GO TO
+
+https://github.com/ACEsuit/mace-foundations/releases/tag/mace_mpa_0/mace-mpa-0-medium.model
+
+you have to use the command scp to get it from your computer to your SCC account.
+the h200 does not seem to have internet access so the code cant pull the model.....
+
+What this looks like for me (on my LOCAL MACHINE, NOT SCC)
+
+     $ cd Downloads
+     $ scp ./mace-mpa-0-medium.model lclemens@scc1.bu.edu:/projectnb/me508/students/lclemens/ASE-MACE
+####
+
+#### ASE SIMULATION ####
+There are some things that need to be changed in order to run your calculation. In the first line of the file,
+make sure you have your conda env path changed from mine to yours, just like what's specified above!
+
+In the body, the first change is your cif file. Change the name I have in there to your cif file name.
+
+Second is the output files (.log and .traj), please change those to your initials so we know who the files
+belong to!
+
+Third is the MACE model path, as specified above.
+
+#### THE REST ####
+You should not have to change the batch script submission command. I have it set to 48 hours while I'm tinkering with
+what the right timing is.. Adsorption takes a while! Currently we have a 1 ns run, dumping a frame every ps.
+
+To visualize your trajectory while it is running, you have to use a GPU node like we did for the conda env.
+
+   $ ase gui example_trajectory.traj
+
+This will pull up the ASE GUI to view your equilibration, NVT, etc! We can make sure the CO2 is near your pore before
+equilibration finishes.
+
+There is also a script to convert your .traj into a .xyz with correct atom numbers and frame numbering, so that
+we can visualize in VMD as well (for better quality visualization later). All of the post processing scripts
+should be run on a CPU, not a GPU.
