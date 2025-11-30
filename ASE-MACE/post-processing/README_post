@@ -1,0 +1,6 @@
+CPU.sh - CPU submission script
+exyz2xyz.py - converts extxyz to xyz
+trajectory_wrapping.py - wraps your final trajectory
+average-coordinates.py - averages coordinates over a whole trajectory
+oscillation_calcs.py -
+avg-coord-error.ipynb - jupyter notebook that gives atom and element errors with plots
