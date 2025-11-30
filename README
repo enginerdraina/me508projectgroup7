@@ -1,0 +1,63 @@
+This is an example input script for Gaussian.
+In order to run this input. you must delete all of the comments,
+otherwise you may encounter an error.
+
+For more info on keywords (like Opt or SP which is what we will use)
+or other input parameters, refer to the Gaussian documentation.
+
+==== CREATE FILE ====
+To create an input file:
+   $ emacs filename.com
+
+To save the file, type ctrl+x+s
+To close the file, type ctrl+x+c
+
+You can use your fav text editor, but mine is emacs.
+
+==== EXAMPLE INPUT ====
+%NProcShared=2		! Number of processors used. We will use b/w 8-16 for MOFs
+%mem = 8GB		! allocate memory
+%chk=example.chk	! checkpoint in case calculation dies
+#n B3LYP/6-31G(d) Opt	! B3LYP = functional, 6-31g* is basis. Opt is keyword for optimize
+   		  	! blank line, must stay blank
+ Example input script   ! must always include a title or calc will fail
+ 	       		! blank line, must stay blank
+0 1			! charge and multiplicity, will change for MOF.
+C         -2.87209        2.01374       -0.03500   	! atom, then coordinates
+O         -4.06686        1.96995        0.00643
+O         -1.67730        2.05721       -0.07666
+! leave some blank lines after this or you may get an error.
+
+==== RUNNING ====
+
+To submit the calculation, run:
+
+   $ qsub submit.sh
+
+To track if your calculation is queued (qw), running (r), or dead:
+
+   $ qstat -u lclemens [replace with your user]
+  
+To track the progress of your calculation, you can run:
+
+   $ tail filename.log
+
+If it is running, you can see that. If it failed, you will see an
+error termination message. When your job finishes *successfully*, your
+file will end with a random quote followed by the compute time of the calculation.
+
+==== ENERGY CONVERGENCE ====
+
+To track the convergence progress of the calculation, you can type
+
+   $ grep Force filename.log
+   $ grep Displacement filename.log
+
+Force will converge slower than displacement, but you can track
+your progress for a long SCF convergence.
+
+To find the minimum energy in your output, you can run:
+
+   $ grep SCF filename.log
+
+The minimum energy will be the last SCF energy in the list.

@@ -1,0 +1,93 @@
+This is documentation for how to run your MOF calculations.
+We will cover the setup, through calculation submission.
+
+==== VESTA ====
+VESTA has its own crystallography database. You can find it by going to File >
+Search Database. When you choose a MOF, VESTA will tell you how many atoms it
+contains. Let's aim for 100-130 atoms.
+
+Remove any atoms in the pores with the "Select" tool (s). Make sure you do not
+have "Show only asymmetric unit" selected, as you will not get the full unit
+cell. When you have just your unit cell, confirm it looks the same as the CCDC
+preview, then export the file as xyz.
+
+==== AVOGADRO ====
+For this next step, you will need Avogadro. I know I said it's buggy, but it
+should not be for this next step.
+
+Load your xyz into Avogadro, then go to Build > Add Hydrogens
+
+You need to be careful about a few things here. Metallic bonds tend to be too
+long for Avogadro to interpret, so it will not show those bonds and instead
+accidentally add H to stuff that should be coordinated to your metal center.
+Try to connect your bonds to your metal center before adding H by using the
+Draw Settings tool.
+
+Secondly, you need to make sure any double/triple bonded atoms do not get H
+added. For example, if you have a double bonded terminal oxygen, you can't have
+H added there. Oxygen only likes to have two bonds. Any erronious non-bonding
+or added H can be corrected easily! Avogadro also sometimes struggles to
+recognize double bonds. This is okay, because we are not giving any bond info
+to Gaussian HOWEVER if we miss a double bond and then add H, we are giving the
+wrong info to Gaussian, and the calcualtion will not be correct. So, don't
+worry if you don't see a double bond where there should be one, but DO worry
+if it added a hydrogen where it should not have.
+
+Your unit cell must be capped with hydrogren, or your calculation will not come
+out correctly.
+
+==== CHARGES ====
+This part will probably be the most complicated. Your ligand should be neutral,
+but you will have a collection of cations from your metal center. For example,
+when Zn has 6 bonds (octahedral), it has a 2+ charge. If your ligand (thing
+attached to metal centers) is neutral, then your charge is 2 times however
+many Zn are in your unit cell.
+
+If your ligand has something like an SO4 attached to it, that has a charge of
+2-. To find our overall charge, we have to include positive and negative
+charges.
+
+Let's say your unit cell has 4 Zn, and 2 SO4. That makes your overall charge
+
+      4(+2) + 2(-2)
+      = 8 - 4
+      = 4
+
+This means in your .com file, you will change your charge to 4 in the charge
+and multiplicity section.
+
+==== SPIN ====
+I think spin is irrelevant to explain for our project. Start by leaving your
+spin as 1. Gaussian will throw an error immediately if your charge/spin
+combination is wrong. If 1 doesn't work, the next number you want to try is 3.
+If that doesn't work, use 2. If none of those work, we have a problem and you
+should get in contact with me. Remember, the way to tell you have an error is
+by checking to see if your calculation dies right after it starts running.
+
+Use the command:
+  $ tail g16.err
+
+And if your charge/spin multiplicity is wrong, it will tell you the combination
+is not allowed.
+
+==== BASIS SET ====
+We will be using what is referred to as a "split basis" where the light atoms
+get a gaussian-type basis (6-31G or something similar, and the transition
+metals get an effective core potential, LANL2DZ. I have the set up for this in
+the example .com file
+
+What you will want to change is the atoms. My MOF has sulfur and calcium, but
+yours probably won't. You want to change C H O S to your light atoms, and Ca
+to your transition metal.
+
+We use the split basis because the gaussian basis sets are limited to certain
+atoms, typically not including heavy atoms. The split basis will give us a more
+accurate calculation.
+
+==== SUBMIT ====
+Once you get rid of my coordinates (ctrl+k will delete a whole line at a time),
+you can paste yours in. After you update your title, charge and multiplicity,
+and atoms in your split basis, you should be good to run!
+
+In the .sh script, do not modify the processors or memory, but you should
+replace the .com and .log with your file names.
