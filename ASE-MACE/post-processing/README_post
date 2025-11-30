@@ -2,5 +2,5 @@ CPU.sh - CPU submission script
 exyz2xyz.py - converts extxyz to xyz
 trajectory_wrapping.py - wraps your final trajectory
 average-coordinates.py - averages coordinates over a whole trajectory
-oscillation_calcs.py -
+oscillation_calcs.py - calculated average oscillation in atomic distance per frame, with a plot
 avg-coord-error.ipynb - jupyter notebook that gives atom and element errors with plots
