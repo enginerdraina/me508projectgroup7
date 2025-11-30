@@ -6,7 +6,7 @@ Run MD in this order:
 
   Using empty cell .traj, run
   
-  4. 150K_co2_run.py
+  3. 150K_co2_run.py
 
 After this, run post-processing in this order:
   1. average-coordinates.py
