@@ -39,9 +39,9 @@ FULLPOTENTIAL32 = TorchDFTD3Calculator(dft=MACEPOTENTIAL32, device=device, every
 # NVT PRODUCTION RUN
 ########################
 
-## leave this commented out unless you are RERUNNING for some reason
-## for example if you wanted to confirm dynamics with NVE then run NVT, or vice versa
-system = read('equilibration-empty_ljc.traj') # note nvE ending, not nvT :-)
+# leave this commented out unless you are RERUNNING for some reason
+# for example if you wanted to confirm dynamics with NVE then run NVT, or vice versa
+system = read('equilibration-empty_ljc.traj') 
 co2_2 = molecule('CO2') # load in a CO2
 co2_2.center(vacuum=0)
 

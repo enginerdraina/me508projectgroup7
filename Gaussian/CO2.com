@@ -1,7 +1,7 @@
 %NProcShared=2
 %mem = 8GB
 %chk=example.chk
-#n B3LYP/6-31G(d) Opt
+#n B3LYP/6-31+G(d) Opt
 
  Example input script
 
