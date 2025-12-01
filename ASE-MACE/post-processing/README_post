@@ -3,5 +3,5 @@ exyz2xyz.py - converts extxyz to xyz
 trajectory_wrapping.py - wraps your final trajectory
 average-coordinates.py - averages coordinates over a whole trajectory
 oscillation_calcs.py - calculates average oscillation in atomic distance per frame, relative to frame 1, with a plot
-oscillation_calcs-2.py - calculates avg. oscillation in atomic distance per frame, relative to prevo=ious frame, with a plot
+oscillation_calcs-2.py - calculates avg. oscillation in atomic distance per frame, relative to previous frame, with a plot
 avg-coord-error.ipynb - jupyter notebook that gives atom and element errors with plots
