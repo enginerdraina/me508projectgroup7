@@ -19,3 +19,11 @@ After this, run post-processing in this order:
   5. trajectory_wrapping.py
 
 Then, run Gaussian in any order after truncating and capping.
+
+-----------
+Author Contributions:
+Lucas Clemens: Completed methodology section in paper and presentation, wrote all of the MD/DFT code and most of the post-processing code. Ran all simulations as described in methodology. Updated GitHub repository.
+Daniel Ellis: Ran simulations at two temperatures, wrote portions of the discussion and conclusion, edited report.
+Riley Leighton: Ran simulations at one temperature, wrote portions of the discussion, conclusion and future work.  
+ Monika Mocarska: Ran simulations at two temperatures, wrote portions of the introduction, results and conclusions.
+Raina Tung: Ran simulations at two temperatures, wrote temperature-dependent oscillation analysis code, wrote portion of results, wrote portion of discussion section, outlined portion of future work section.
